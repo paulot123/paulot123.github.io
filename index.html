@@ -124,7 +124,7 @@
                 </div>
                 <div id="commit-grid" class="commit-grid" aria-label="GitHub style contribution chart"></div>
                 <div class="commit-year-labels" aria-hidden="true">
-                    <button type="button" class="commit-year-option active" data-period="last">Last Year</button>
+                    <button type="button" class="commit-year-option active" data-period="last">Year</button>
                     <button type="button" class="commit-year-option" data-period="2026">2026</button>
                     <button type="button" class="commit-year-option" data-period="2025">2025</button>
                     <button type="button" class="commit-year-option" data-period="2024">2024</button>
@@ -143,6 +143,7 @@
                 </div>
                 <span>More</span>
             </div>
+            <div id="commit-tooltip" class="commit-tooltip" role="status" aria-live="polite"></div>
         </div>
     </section>
 
@@ -562,6 +563,15 @@
                     return date.toISOString().slice(0, 10);
                 }
 
+                function formatTooltipDate(dateStr) {
+                    const date = new Date(`${dateStr}T00:00:00`);
+                    return date.toLocaleDateString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        timeZone: 'UTC'
+                    });
+                }
+
                 function toLevel(count, maxCount) {
                     if (!count) return 0;
                     if (maxCount <= 1) return 4;
@@ -653,10 +663,10 @@
                             const level = toLevel(count, maxCount);
                             if (inRange) {
                                 cell.classList.add(`lvl-${level}`);
-                                cell.title = `${key}: ${count} contribution${count === 1 ? '' : 's'}`;
+                                cell.dataset.tooltip = `${count} contributions on ${formatTooltipDate(key)}`;
                             } else {
                                 cell.classList.add('no-day');
-                                cell.title = '';
+                                cell.dataset.tooltip = '';
                             }
                             commitGrid.appendChild(cell);
                         }
@@ -679,10 +689,10 @@
                             const inRange = date >= rangeStart && date <= rangeEnd;
                             if (inRange) {
                                 cell.classList.add('lvl-0');
-                                cell.title = 'Contribution data unavailable';
+                                cell.dataset.tooltip = `0 contributions on ${formatTooltipDate(isoDate(date))}`;
                             } else {
                                 cell.classList.add('no-day');
-                                cell.title = '';
+                                cell.dataset.tooltip = '';
                             }
                             commitGrid.appendChild(cell);
                         }
@@ -703,13 +713,42 @@
                 async function renderRealGithubContributions(period) {
                     setActiveYear(period);
                     try {
-                        const response = await fetch('data/github-contributions.json', { cache: 'no-store' });
-                        if (!response.ok) throw new Error('Local contribution data unavailable');
-                        const data = await response.json();
-                        if (!data || data.username !== username) throw new Error('Contribution data username mismatch');
-                        const periodData = data.periods ? data.periods[String(period)] : null;
-                        const countMap = periodData && periodData.counts ? periodData.counts : null;
-                        if (!countMap || !Object.keys(countMap).length) throw new Error('No contribution data for selected period');
+                        let countMap = null;
+
+                        // First choice: local generated file (supports private contributions)
+                        try {
+                            const response = await fetch('data/github-contributions.json', { cache: 'no-store' });
+                            if (response.ok) {
+                                const data = await response.json();
+                                const periodData = data && data.periods ? data.periods[String(period)] : null;
+                                if (data && data.username === username && periodData && periodData.counts && Object.keys(periodData.counts).length) {
+                                    countMap = periodData.counts;
+                                }
+                            }
+                        } catch (error) {
+                            // Continue to public fallback below.
+                        }
+
+                        // Fallback: public API so chart still renders before local sync is configured.
+                        if (!countMap) {
+                            const queryPeriod = period === 'last' ? 'last' : String(period);
+                            const publicResponse = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=${queryPeriod}`, {
+                                method: 'GET'
+                            });
+                            if (!publicResponse.ok) throw new Error('Public contribution API unavailable');
+                            const publicData = await publicResponse.json();
+                            const contributions = Array.isArray(publicData.contributions) ? publicData.contributions : [];
+                            if (!contributions.length) throw new Error('No public contribution data found');
+
+                            countMap = {};
+                            contributions.forEach(item => {
+                                if (item && item.date) {
+                                    countMap[item.date] = Number(item.count) || 0;
+                                }
+                            });
+                        }
+
+                        if (!countMap || !Object.keys(countMap).length) throw new Error('Contribution map was empty');
                         renderFromCountMap(countMap, period);
                     } catch (error) {
                         renderEmptyGrid(period);
@@ -724,6 +763,33 @@
                         }
                     });
                 });
+
+                const commitTooltip = document.getElementById('commit-tooltip');
+                function hideCommitTooltip() {
+                    if (!commitTooltip) return;
+                    commitTooltip.classList.remove('show');
+                }
+
+                function showCommitTooltip(event, text) {
+                    if (!commitTooltip || !text) return;
+                    commitTooltip.textContent = text;
+                    commitTooltip.classList.add('show');
+                    const offset = 12;
+                    commitTooltip.style.left = `${event.clientX + offset}px`;
+                    commitTooltip.style.top = `${event.clientY + offset}px`;
+                }
+
+                if (commitGrid) {
+                    commitGrid.addEventListener('mousemove', function(event) {
+                        const cell = event.target.closest('.commit-cell');
+                        if (!cell || cell.classList.contains('no-day')) {
+                            hideCommitTooltip();
+                            return;
+                        }
+                        showCommitTooltip(event, cell.dataset.tooltip || '');
+                    });
+                    commitGrid.addEventListener('mouseleave', hideCommitTooltip);
+                }
 
                 renderRealGithubContributions('last');
             }

@@ -1092,6 +1092,9 @@ footer {
     background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
     padding: 1.2rem 1.1rem 1rem;
     overflow-x: auto;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 .commit-history-header {
@@ -1126,7 +1129,7 @@ footer {
     position: relative;
     color: var(--text-soft);
     font-size: 0.72rem;
-    width: var(--commit-grid-width);
+    width: calc(var(--commit-grid-width) + 2rem + 0.3rem);
     height: 0.9rem;
     padding-left: calc(2rem + 0.3rem);
     box-sizing: content-box;
@@ -1142,7 +1145,7 @@ footer {
 
 .commit-grid-wrap {
     display: grid;
-    grid-template-columns: 2rem var(--commit-grid-width) 5rem;
+    grid-template-columns: 2rem var(--commit-grid-width) 1fr;
     align-items: start;
     gap: 0.3rem;
     width: max-content;
@@ -1213,29 +1216,35 @@ footer {
     display: grid;
     gap: 0.4rem;
     justify-items: end;
+    justify-self: end;
+    width: 4.25rem;
 }
 
 .commit-year-option {
+    appearance: none;
     background: transparent;
-    border: none;
+    border: 1px solid #2a2a2a;
     color: var(--text-soft);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-family: "JetBrains Mono", "Consolas", "Courier New", monospace;
     cursor: pointer;
-    padding: 0;
+    padding: 0.2rem 0.2rem;
     line-height: 1.1;
-    width: 100%;
+    width: 50%;
     text-align: right;
     white-space: nowrap;
+    border-radius: 0;
+    transition: border-color 0.15s ease, color 0.15s ease;
 }
 
 .commit-year-option:hover {
-    color: var(--accent);
+    color: var(--text-main);
+    border-color: #5a5a5a;
 }
 
 .commit-year-option.active {
     color: #f2f6ff;
-    text-shadow: 0 0 8px rgba(var(--accent-rgb), 0.35);
+    border-color: var(--accent);
 }
 
 .commit-legend {
@@ -1264,6 +1273,29 @@ footer {
 .legend-squares .lvl-2 { background: #1d5b38; }
 .legend-squares .lvl-3 { background: #238649; }
 .legend-squares .lvl-4 { background: #2ecc71; }
+
+.commit-tooltip {
+    position: fixed;
+    z-index: 3000;
+    pointer-events: none;
+    background: #101010;
+    color: #f2f2f2;
+    border: 1px solid #4e4e4e;
+    padding: 0.35rem 0.55rem;
+    font-size: 0.72rem;
+    line-height: 1.2;
+    font-family: "JetBrains Mono", "Consolas", "Courier New", monospace;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.12s ease, transform 0.12s ease;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.commit-tooltip.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 @media (max-width: 768px) {
     nav {
