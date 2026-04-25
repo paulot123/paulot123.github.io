@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paulo Truong - Portfolio</title>
+    <title>Paulo Truong - Featured Projects</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,32 +11,22 @@
         <nav>
             <div class="logo">Paulo Truong</div>
             <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="projects.html">More Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="hero-blobs" aria-hidden="true">
-            <span class="hero-blob"></span>
-            <span class="hero-blob"></span>
-            <span class="hero-blob"></span>
-            <span class="hero-blob"></span>
+    <section class="page-hero">
+        <h2>Featured Projects</h2>
+        <p>Browse featured projects with full details, media galleries, and technical breakdowns.</p>
+        <div class="page-actions">
+            <a href="index.html" class="cta-button">Back to Main Portfolio</a>
         </div>
-        <h1>Paulo Truong</h1>
-        <p>Computer Science Student | Full-Stack Developer</p>
-        <div class="hero-links">
-            <a href="mailto:paulot0204@gmail.com" class="copy-link" data-copy="paulot0204@gmail.com">paulot0204@gmail.com</a>
-            <a href="tel:+19568019607" class="copy-link" data-copy="(956) 801-9607">(956) 801-9607</a>
-        </div>
-        <!-- <a href="#projects" class="cta-button">View My Work</a> -->
     </section>
 
-<section id="projects">
-        <h2>Featured Projects</h2>
+    <section id="projects">
         <div class="projects-grid">
             <div class="project-card" onclick="openModal('bmo')">
                 <div class="project-content project-title">
@@ -101,52 +91,8 @@
                 </div>
             </div>
         </div>
-        <div class="projects-page-link">
-            <a href="projects.html" class="cta-button">View More Projects</a>
-        </div>
     </section>
 
-    <section id="commit-history">
-        <div class="commit-history-card">
-            <div class="commit-history-header">
-                <span>GitHub Commit History</span>
-                <div class="commit-history-meta">
-                    <span class="commit-total">Total commits: --</span>
-                    <span class="commit-year-badge">2026</span>
-                </div>
-            </div>
-            <div class="commit-months" aria-hidden="true"></div>
-            <div class="commit-grid-wrap">
-                <div class="commit-day-labels" aria-hidden="true">
-                    <span>Mon</span>
-                    <span>Wed</span>
-                    <span>Fri</span>
-                </div>
-                <div id="commit-grid" class="commit-grid" aria-label="GitHub style contribution chart"></div>
-                <div class="commit-year-labels" aria-hidden="true">
-                    <button type="button" class="commit-year-option active" data-period="last">Last Year</button>
-                    <button type="button" class="commit-year-option" data-period="2026">2026</button>
-                    <button type="button" class="commit-year-option" data-period="2025">2025</button>
-                    <button type="button" class="commit-year-option" data-period="2024">2024</button>
-                    <button type="button" class="commit-year-option" data-period="2023">2023</button>
-                    <button type="button" class="commit-year-option" data-period="2022">2022</button>
-                </div>
-            </div>
-            <div class="commit-legend" aria-hidden="true">
-                <span>Less</span>
-                <div class="legend-squares">
-                    <span class="lvl-0"></span>
-                    <span class="lvl-1"></span>
-                    <span class="lvl-2"></span>
-                    <span class="lvl-3"></span>
-                    <span class="lvl-4"></span>
-                </div>
-                <span>More</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modals -->
     <div id="bmo-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('bmo')">&times;</span>
@@ -346,73 +292,6 @@
         </div>
     </div>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <div class="about-content">
-            <div>
-                <div class="education-card">
-                    <h3>Texas A&M University</h3>
-                    <div class="degree">Bachelor of Science in Computer Science</div>
-                    <div class="degree">Minor in Business</div>
-                    <div class="gpa">GPA: 3.45 | August 2022 - May 2026</div>
-                    <div class="coursework">
-                        <h4>RELEVANT COURSEWORK:</h4>
-                        <p>Data Structures & Algorithms, Software Engineering, Artificial Intelligence, Parallel Computing, Data Science, Human-Computer Interaction, Computer Systems, Discrete Structures</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills">
-        <h2>Technical Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <h3>Programming Languages</h3>
-                <p>C++, Python, Java, JavaScript, HTML, CSS, MATLAB, SQL</p>
-            </div>
-            <div class="skill-card">
-                <h3>Frameworks & Libraries</h3>
-                <p>React, FastAPI, Spring Boot, SQLAlchemy, JWT, APScheduler, Alembic, Pandas, NumPy, Scikit-learn, Matplotlib</p>
-            </div>
-            <div class="skill-card">
-                <h3>Tools & Platforms</h3>
-                <p>Git, AWS, Linux, PostgreSQL, CI/CD, Node.js, Virtual Environments</p>
-            </div>
-            <div class="skill-card">
-                <h3>Methodologies</h3>
-                <p>Agile, Scrum, REST API Design, OAuth 2.0, WCAG 2.1 Accessibility Standards</p>
-            </div>
-        </div>
-    </section>
-
-<!--     <section id="contact">
-        <h2>Contact Me</h2>
-        <div class="contact-info">
-            <p>Feel free to reach out!</p>
-        </div>
-        <form class="contact-form" action="https://formsubmit.co/paulot0204@gmail.com" method="POST">
-            FormSubmit Configuration
-            <input type="hidden" name="_subject" value="New Portfolio Contact Message!">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="box">
-            
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>
-            <button type="submit">Send Message</button>
-        </form>
-    </section> -->
-
     <footer>
         <div class="social-links">
             <a href="https://github.com/paulot123" target="_blank">GitHub</a>
@@ -422,7 +301,6 @@
         <p>&copy; 2026 Paulo Truong.</p>
     </footer>
 
-    <!-- Image Lightbox -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
         <div class="lightbox-counter" id="lightbox-counter"></div>
@@ -432,8 +310,6 @@
         <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 
-    <div id="copy-notification" class="copy-notification" aria-live="polite">Copied to clipboard</div>
-
     <script>
         let currentImageIndex = 0;
         let galleryImages = [];
@@ -442,8 +318,7 @@
             const modal = document.getElementById(projectId + '-modal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            // Update gallery images for this modal
+
             setTimeout(() => {
                 galleryImages = Array.from(modal.querySelectorAll('.media-item img'));
             }, 100);
@@ -460,30 +335,26 @@
             const lightboxImg = document.getElementById('lightbox-img');
             const caption = document.getElementById('lightbox-caption');
             const counter = document.getElementById('lightbox-counter');
-            
-            // Find the index of the clicked image
+
             currentImageIndex = galleryImages.indexOf(imgElement);
-            
+
             lightbox.classList.add('active');
             lightboxImg.src = imgElement.src;
             caption.textContent = imgElement.alt || '';
-            
-            // Update counter
+
             if (galleryImages.length > 1) {
                 counter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
                 counter.style.display = 'block';
             } else {
                 counter.style.display = 'none';
             }
-            
-            // Hide caption if no alt text
+
             if (!imgElement.alt) {
                 caption.style.display = 'none';
             } else {
                 caption.style.display = 'block';
             }
-            
-            // Show/hide navigation arrows
+
             updateNavigationVisibility();
         }
 
@@ -494,37 +365,32 @@
 
         function navigateLightbox(direction) {
             if (galleryImages.length === 0) return;
-            
+
             currentImageIndex += direction;
-            
-            // Loop around
+
             if (currentImageIndex < 0) {
                 currentImageIndex = galleryImages.length - 1;
             } else if (currentImageIndex >= galleryImages.length) {
                 currentImageIndex = 0;
             }
-            
+
             const lightboxImg = document.getElementById('lightbox-img');
             const caption = document.getElementById('lightbox-caption');
             const counter = document.getElementById('lightbox-counter');
             const currentImg = galleryImages[currentImageIndex];
-            
-            // Add fade effect
+
             lightboxImg.style.opacity = '0';
             setTimeout(() => {
                 lightboxImg.src = currentImg.src;
                 caption.textContent = currentImg.alt || '';
-                
-                // Update counter
                 counter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
-                
-                // Hide caption if no alt text
+
                 if (!currentImg.alt) {
                     caption.style.display = 'none';
                 } else {
                     caption.style.display = 'block';
                 }
-                
+
                 lightboxImg.style.opacity = '1';
             }, 150);
         }
@@ -532,7 +398,7 @@
         function updateNavigationVisibility() {
             const prevBtn = document.querySelector('.lightbox-prev');
             const nextBtn = document.querySelector('.lightbox-next');
-            
+
             if (galleryImages.length <= 1) {
                 prevBtn.style.display = 'none';
                 nextBtn.style.display = 'none';
@@ -542,259 +408,38 @@
             }
         }
 
-        // Add click handlers to all images in media galleries
         document.addEventListener('DOMContentLoaded', function() {
-            const commitGrid = document.getElementById('commit-grid');
-            if (commitGrid) {
-                const weeks = 53;
-                const days = 7;
-                const username = 'paulot123';
-                const commitCard = document.querySelector('.commit-history-card');
-                const monthRow = document.querySelector('.commit-months');
-                const yearBadge = document.querySelector('.commit-year-badge');
-                const commitTotal = document.querySelector('.commit-total');
-                const yearOptions = Array.from(document.querySelectorAll('.commit-year-option'));
-                const yearNow = new Date().getFullYear();
-                if (yearBadge) yearBadge.textContent = 'Last 365d';
-                const validPeriods = new Set(yearOptions.map(btn => btn.getAttribute('data-period')));
-
-                function isoDate(date) {
-                    return date.toISOString().slice(0, 10);
-                }
-
-                function toLevel(count, maxCount) {
-                    if (!count) return 0;
-                    if (maxCount <= 1) return 4;
-                    const ratio = count / maxCount;
-                    if (ratio >= 0.75) return 4;
-                    if (ratio >= 0.5) return 3;
-                    if (ratio >= 0.25) return 2;
-                    return 1;
-                }
-
-                function setTotalCommits(total) {
-                    if (commitTotal) {
-                        commitTotal.textContent = `Total commits: ${total}`;
-                    }
-                }
-
-                function getCommitLayoutMetrics() {
-                    if (!commitCard) {
-                        return { cellSize: 11, gap: 4, gridWidth: 747 };
-                    }
-                    const styles = getComputedStyle(commitCard);
-                    const cellSize = parseFloat(styles.getPropertyValue('--commit-cell-size')) || 11;
-                    const gap = parseFloat(styles.getPropertyValue('--commit-gap')) || 4;
-                    const gridWidth = (cellSize * weeks) + (gap * (weeks - 1));
-                    return { cellSize, gap, gridWidth };
-                }
-
-                function renderMonthLabels(rangeStart, rangeEnd, gridStart) {
-                    if (!monthRow) return;
-                    monthRow.innerHTML = '';
-                    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                    const { cellSize, gap, gridWidth } = getCommitLayoutMetrics();
-                    const step = cellSize + gap;
-                    let cursor = new Date(rangeStart.getFullYear(), rangeStart.getMonth(), 1);
-                    if (cursor < rangeStart) {
-                        cursor = new Date(rangeStart.getFullYear(), rangeStart.getMonth() + 1, 1);
-                    }
-
-                    while (cursor <= rangeEnd) {
-                        const dayOffset = Math.floor((cursor - gridStart) / (1000 * 60 * 60 * 24));
-                        const weekIndex = Math.floor(dayOffset / 7);
-                        const left = Math.max(0, Math.min(weekIndex * step, gridWidth - 30));
-                        const label = document.createElement('span');
-                        label.textContent = monthNames[cursor.getMonth()];
-                        label.style.left = `${left}px`;
-                        monthRow.appendChild(label);
-                        cursor = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1);
-                    }
-                }
-
-                function getRangeForPeriod(period) {
-                    const end = new Date();
-                    if (period === 'last') {
-                        const start = new Date(end);
-                        start.setDate(end.getDate() - 364);
-                        start.setHours(0, 0, 0, 0);
-                        end.setHours(23, 59, 59, 999);
-                        return { start, end };
-                    }
-                    const y = Number(period);
-                    return {
-                        start: new Date(y, 0, 1, 0, 0, 0, 0),
-                        end: new Date(y, 11, 31, 23, 59, 59, 999)
-                    };
-                }
-
-                function renderFromCountMap(countMap, period) {
-                    commitGrid.innerHTML = '';
-                    const { start: rangeStart, end: rangeEnd } = getRangeForPeriod(period);
-                    const gridStart = new Date(rangeStart);
-                    gridStart.setDate(rangeStart.getDate() - rangeStart.getDay());
-                    renderMonthLabels(rangeStart, rangeEnd, gridStart);
-                    const counts = Object.values(countMap);
-                    const maxCount = counts.length ? Math.max(...counts) : 0;
-                    let totalCommits = 0;
-
-                    for (let d = 0; d < days; d += 1) {
-                        for (let w = 0; w < weeks; w += 1) {
-                            const cell = document.createElement('span');
-                            cell.className = 'commit-cell';
-                            const date = new Date(gridStart);
-                            date.setDate(gridStart.getDate() + (w * days) + d);
-                            const key = isoDate(date);
-                            const inRange = date >= rangeStart && date <= rangeEnd;
-                            const count = countMap[key] || 0;
-                            if (inRange) {
-                                totalCommits += count;
-                            }
-                            const level = toLevel(count, maxCount);
-                            if (inRange) {
-                                cell.classList.add(`lvl-${level}`);
-                                cell.title = `${key}: ${count} contribution${count === 1 ? '' : 's'}`;
-                            } else {
-                                cell.classList.add('no-day');
-                                cell.title = '';
-                            }
-                            commitGrid.appendChild(cell);
-                        }
-                    }
-                    setTotalCommits(totalCommits);
-                }
-
-                function renderEmptyGrid(period) {
-                    commitGrid.innerHTML = '';
-                    const { start: rangeStart, end: rangeEnd } = getRangeForPeriod(period);
-                    const gridStart = new Date(rangeStart);
-                    gridStart.setDate(rangeStart.getDate() - rangeStart.getDay());
-                    renderMonthLabels(rangeStart, rangeEnd, gridStart);
-                    for (let d = 0; d < days; d += 1) {
-                        for (let w = 0; w < weeks; w += 1) {
-                            const cell = document.createElement('span');
-                            cell.className = 'commit-cell';
-                            const date = new Date(gridStart);
-                            date.setDate(gridStart.getDate() + (w * days) + d);
-                            const inRange = date >= rangeStart && date <= rangeEnd;
-                            if (inRange) {
-                                cell.classList.add('lvl-0');
-                                cell.title = 'Contribution data unavailable';
-                            } else {
-                                cell.classList.add('no-day');
-                                cell.title = '';
-                            }
-                            commitGrid.appendChild(cell);
-                        }
-                    }
-                    setTotalCommits(0);
-                }
-
-                function setActiveYear(period) {
-                    yearOptions.forEach(btn => {
-                        const isActive = btn.getAttribute('data-period') === String(period);
-                        btn.classList.toggle('active', isActive);
-                    });
-                    if (yearBadge) {
-                        yearBadge.textContent = period === 'last' ? 'Last 365d' : String(period);
-                    }
-                }
-
-                async function renderRealGithubContributions(period) {
-                    setActiveYear(period);
-                    try {
-                        const response = await fetch('data/github-contributions.json', { cache: 'no-store' });
-                        if (!response.ok) throw new Error('Local contribution data unavailable');
-                        const data = await response.json();
-                        if (!data || data.username !== username) throw new Error('Contribution data username mismatch');
-                        const periodData = data.periods ? data.periods[String(period)] : null;
-                        const countMap = periodData && periodData.counts ? periodData.counts : null;
-                        if (!countMap || !Object.keys(countMap).length) throw new Error('No contribution data for selected period');
-                        renderFromCountMap(countMap, period);
-                    } catch (error) {
-                        renderEmptyGrid(period);
-                    }
-                }
-
-                yearOptions.forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const selectedPeriod = this.getAttribute('data-period');
-                        if (selectedPeriod && validPeriods.has(selectedPeriod)) {
-                            renderRealGithubContributions(selectedPeriod);
-                        }
-                    });
-                });
-
-                renderRealGithubContributions('last');
-            }
-
             const mediaImages = document.querySelectorAll('.media-item img');
             mediaImages.forEach(img => {
                 img.addEventListener('click', function() {
                     openLightbox(this);
                 });
             });
-
-            // Subtle blob repulsion from cursor in hero section
-            const hero = document.querySelector('.hero');
-            const blobs = hero ? Array.from(hero.querySelectorAll('.hero-blob')) : [];
-            if (hero && blobs.length) {
-                const maxPush = 16;
-
-                hero.addEventListener('mousemove', function(event) {
-                    blobs.forEach(blob => {
-                        const rect = blob.getBoundingClientRect();
-                        const centerX = rect.left + rect.width / 2;
-                        const centerY = rect.top + rect.height / 2;
-                        const dx = centerX - event.clientX;
-                        const dy = centerY - event.clientY;
-                        const distance = Math.sqrt(dx * dx + dy * dy) || 1;
-                        const force = Math.max(0, (260 - distance) / 260);
-                        const offsetX = (dx / distance) * maxPush * force;
-                        const offsetY = (dy / distance) * maxPush * force;
-
-                        blob.style.setProperty('--mouse-x', `${offsetX.toFixed(2)}px`);
-                        blob.style.setProperty('--mouse-y', `${offsetY.toFixed(2)}px`);
-                    });
-                });
-
-                hero.addEventListener('mouseleave', function() {
-                    blobs.forEach(blob => {
-                        blob.style.setProperty('--mouse-x', '0px');
-                        blob.style.setProperty('--mouse-y', '0px');
-                    });
-                });
-            }
         });
 
-        // Close modal when clicking outside
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
-        }
+        };
 
-        // Close modal and lightbox with Escape key, navigate with arrow keys
         document.addEventListener('keydown', function(event) {
             const lightbox = document.getElementById('lightbox');
-            
+
             if (event.key === 'Escape') {
-                // Close lightbox first if open
                 if (lightbox.classList.contains('active')) {
                     closeLightbox();
                     return;
                 }
-                
-                // Then close modals
+
                 const modals = document.querySelectorAll('.modal.active');
                 modals.forEach(modal => {
                     modal.classList.remove('active');
                     document.body.style.overflow = 'auto';
                 });
             }
-            
-            // Navigate with arrow keys when lightbox is open
+
             if (lightbox.classList.contains('active')) {
                 if (event.key === 'ArrowLeft') {
                     navigateLightbox(-1);
@@ -804,43 +449,7 @@
             }
         });
 
-        // Add smooth transition to lightbox image
         document.getElementById('lightbox-img').style.transition = 'opacity 0.15s';
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Form submission handler
-
-        // Copy email/phone to clipboard on click
-        document.querySelectorAll('.copy-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const text = this.getAttribute('data-copy') || this.textContent.trim();
-                navigator.clipboard.writeText(text).then(() => {
-                    const notification = document.getElementById('copy-notification');
-                    notification.classList.add('show');
-                    clearTimeout(notification._hideTimer);
-                    notification._hideTimer = setTimeout(() => {
-                        notification.classList.remove('show');
-                    }, 2500);
-                }).catch(() => {
-                    // Fallback: open mailto/tel if clipboard fails
-                    window.location.href = this.getAttribute('href');
-                });
-            });
-        });
     </script>
 </body>
 </html>
