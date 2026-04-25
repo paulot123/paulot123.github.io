@@ -20,17 +20,17 @@
     </header>
 
     <section class="hero">
+        <div class="hero-blobs" aria-hidden="true">
+            <span class="hero-blob"></span>
+            <span class="hero-blob"></span>
+            <span class="hero-blob"></span>
+            <span class="hero-blob"></span>
+        </div>
         <h1>Paulo Truong</h1>
         <p>Computer Science Student | Full-Stack Developer</p>
         <div class="hero-links">
             <a href="mailto:paulot0204@gmail.com" class="copy-link" data-copy="paulot0204@gmail.com">paulot0204@gmail.com</a>
             <a href="tel:+19568019607" class="copy-link" data-copy="(956) 801-9607">(956) 801-9607</a>
-        </div>
-        <div class="hero-walker" id="hero-walker" aria-hidden="true">
-            <span class="walker-head"></span>
-            <span class="walker-body"></span>
-            <span class="walker-leg left"></span>
-            <span class="walker-leg right"></span>
         </div>
         <!-- <a href="#projects" class="cta-button">View My Work</a> -->
     </section>
@@ -103,6 +103,46 @@
         </div>
         <div class="projects-page-link">
             <a href="projects.html" class="cta-button">View More Projects</a>
+        </div>
+    </section>
+
+    <section id="commit-history">
+        <div class="commit-history-card">
+            <div class="commit-history-header">
+                <span>GitHub Commit History</span>
+                <div class="commit-history-meta">
+                    <span class="commit-total">Total commits: --</span>
+                    <span class="commit-year-badge">2026</span>
+                </div>
+            </div>
+            <div class="commit-months" aria-hidden="true"></div>
+            <div class="commit-grid-wrap">
+                <div class="commit-day-labels" aria-hidden="true">
+                    <span>Mon</span>
+                    <span>Wed</span>
+                    <span>Fri</span>
+                </div>
+                <div id="commit-grid" class="commit-grid" aria-label="GitHub style contribution chart"></div>
+                <div class="commit-year-labels" aria-hidden="true">
+                    <button type="button" class="commit-year-option active" data-period="last">Last Year</button>
+                    <button type="button" class="commit-year-option" data-period="2026">2026</button>
+                    <button type="button" class="commit-year-option" data-period="2025">2025</button>
+                    <button type="button" class="commit-year-option" data-period="2024">2024</button>
+                    <button type="button" class="commit-year-option" data-period="2023">2023</button>
+                    <button type="button" class="commit-year-option" data-period="2022">2022</button>
+                </div>
+            </div>
+            <div class="commit-legend" aria-hidden="true">
+                <span>Less</span>
+                <div class="legend-squares">
+                    <span class="lvl-0"></span>
+                    <span class="lvl-1"></span>
+                    <span class="lvl-2"></span>
+                    <span class="lvl-3"></span>
+                    <span class="lvl-4"></span>
+                </div>
+                <span>More</span>
+            </div>
         </div>
     </section>
 
@@ -306,6 +346,24 @@
         </div>
     </div>
 
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div>
+                <div class="education-card">
+                    <h3>Texas A&M University</h3>
+                    <div class="degree">Bachelor of Science in Computer Science</div>
+                    <div class="degree">Minor in Business</div>
+                    <div class="gpa">GPA: 3.45 | August 2022 - May 2026</div>
+                    <div class="coursework">
+                        <h4>RELEVANT COURSEWORK:</h4>
+                        <p>Data Structures & Algorithms, Software Engineering, Artificial Intelligence, Parallel Computing, Data Science, Human-Computer Interaction, Computer Systems, Discrete Structures</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="skills">
         <h2>Technical Skills</h2>
         <div class="skills-grid">
@@ -324,24 +382,6 @@
             <div class="skill-card">
                 <h3>Methodologies</h3>
                 <p>Agile, Scrum, REST API Design, OAuth 2.0, WCAG 2.1 Accessibility Standards</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="about">
-        <h2>About Me</h2>
-        <div class="about-content">
-            <div>
-                <div class="education-card">
-                    <h3>Texas A&M University</h3>
-                    <div class="degree">Bachelor of Science in Computer Science</div>
-                    <div class="degree">Minor in Business</div>
-                    <div class="gpa">GPA: 3.45 | August 2022 - May 2026</div>
-                    <div class="coursework">
-                        <h4>RELEVANT COURSEWORK:</h4>
-                        <p>Data Structures & Algorithms, Software Engineering, Artificial Intelligence, Parallel Computing, Data Science, Human-Computer Interaction, Computer Systems, Discrete Structures</p>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -504,12 +544,227 @@
 
         // Add click handlers to all images in media galleries
         document.addEventListener('DOMContentLoaded', function() {
+            const commitGrid = document.getElementById('commit-grid');
+            if (commitGrid) {
+                const weeks = 53;
+                const days = 7;
+                const username = 'paulot123';
+                const commitCard = document.querySelector('.commit-history-card');
+                const monthRow = document.querySelector('.commit-months');
+                const yearBadge = document.querySelector('.commit-year-badge');
+                const commitTotal = document.querySelector('.commit-total');
+                const yearOptions = Array.from(document.querySelectorAll('.commit-year-option'));
+                const yearNow = new Date().getFullYear();
+                if (yearBadge) yearBadge.textContent = 'Last 365d';
+                const validPeriods = new Set(yearOptions.map(btn => btn.getAttribute('data-period')));
+
+                function isoDate(date) {
+                    return date.toISOString().slice(0, 10);
+                }
+
+                function toLevel(count, maxCount) {
+                    if (!count) return 0;
+                    if (maxCount <= 1) return 4;
+                    const ratio = count / maxCount;
+                    if (ratio >= 0.75) return 4;
+                    if (ratio >= 0.5) return 3;
+                    if (ratio >= 0.25) return 2;
+                    return 1;
+                }
+
+                function setTotalCommits(total) {
+                    if (commitTotal) {
+                        commitTotal.textContent = `Total commits: ${total}`;
+                    }
+                }
+
+                function getCommitLayoutMetrics() {
+                    if (!commitCard) {
+                        return { cellSize: 11, gap: 4, gridWidth: 747 };
+                    }
+                    const styles = getComputedStyle(commitCard);
+                    const cellSize = parseFloat(styles.getPropertyValue('--commit-cell-size')) || 11;
+                    const gap = parseFloat(styles.getPropertyValue('--commit-gap')) || 4;
+                    const gridWidth = (cellSize * weeks) + (gap * (weeks - 1));
+                    return { cellSize, gap, gridWidth };
+                }
+
+                function renderMonthLabels(rangeStart, rangeEnd, gridStart) {
+                    if (!monthRow) return;
+                    monthRow.innerHTML = '';
+                    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    const { cellSize, gap, gridWidth } = getCommitLayoutMetrics();
+                    const step = cellSize + gap;
+                    let cursor = new Date(rangeStart.getFullYear(), rangeStart.getMonth(), 1);
+                    if (cursor < rangeStart) {
+                        cursor = new Date(rangeStart.getFullYear(), rangeStart.getMonth() + 1, 1);
+                    }
+
+                    while (cursor <= rangeEnd) {
+                        const dayOffset = Math.floor((cursor - gridStart) / (1000 * 60 * 60 * 24));
+                        const weekIndex = Math.floor(dayOffset / 7);
+                        const left = Math.max(0, Math.min(weekIndex * step, gridWidth - 30));
+                        const label = document.createElement('span');
+                        label.textContent = monthNames[cursor.getMonth()];
+                        label.style.left = `${left}px`;
+                        monthRow.appendChild(label);
+                        cursor = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1);
+                    }
+                }
+
+                function getRangeForPeriod(period) {
+                    const end = new Date();
+                    if (period === 'last') {
+                        const start = new Date(end);
+                        start.setDate(end.getDate() - 364);
+                        start.setHours(0, 0, 0, 0);
+                        end.setHours(23, 59, 59, 999);
+                        return { start, end };
+                    }
+                    const y = Number(period);
+                    return {
+                        start: new Date(y, 0, 1, 0, 0, 0, 0),
+                        end: new Date(y, 11, 31, 23, 59, 59, 999)
+                    };
+                }
+
+                function renderFromCountMap(countMap, period) {
+                    commitGrid.innerHTML = '';
+                    const { start: rangeStart, end: rangeEnd } = getRangeForPeriod(period);
+                    const gridStart = new Date(rangeStart);
+                    gridStart.setDate(rangeStart.getDate() - rangeStart.getDay());
+                    renderMonthLabels(rangeStart, rangeEnd, gridStart);
+                    const counts = Object.values(countMap);
+                    const maxCount = counts.length ? Math.max(...counts) : 0;
+                    let totalCommits = 0;
+
+                    for (let d = 0; d < days; d += 1) {
+                        for (let w = 0; w < weeks; w += 1) {
+                            const cell = document.createElement('span');
+                            cell.className = 'commit-cell';
+                            const date = new Date(gridStart);
+                            date.setDate(gridStart.getDate() + (w * days) + d);
+                            const key = isoDate(date);
+                            const inRange = date >= rangeStart && date <= rangeEnd;
+                            const count = countMap[key] || 0;
+                            if (inRange) {
+                                totalCommits += count;
+                            }
+                            const level = toLevel(count, maxCount);
+                            if (inRange) {
+                                cell.classList.add(`lvl-${level}`);
+                                cell.title = `${key}: ${count} contribution${count === 1 ? '' : 's'}`;
+                            } else {
+                                cell.classList.add('no-day');
+                                cell.title = '';
+                            }
+                            commitGrid.appendChild(cell);
+                        }
+                    }
+                    setTotalCommits(totalCommits);
+                }
+
+                function renderEmptyGrid(period) {
+                    commitGrid.innerHTML = '';
+                    const { start: rangeStart, end: rangeEnd } = getRangeForPeriod(period);
+                    const gridStart = new Date(rangeStart);
+                    gridStart.setDate(rangeStart.getDate() - rangeStart.getDay());
+                    renderMonthLabels(rangeStart, rangeEnd, gridStart);
+                    for (let d = 0; d < days; d += 1) {
+                        for (let w = 0; w < weeks; w += 1) {
+                            const cell = document.createElement('span');
+                            cell.className = 'commit-cell';
+                            const date = new Date(gridStart);
+                            date.setDate(gridStart.getDate() + (w * days) + d);
+                            const inRange = date >= rangeStart && date <= rangeEnd;
+                            if (inRange) {
+                                cell.classList.add('lvl-0');
+                                cell.title = 'Contribution data unavailable';
+                            } else {
+                                cell.classList.add('no-day');
+                                cell.title = '';
+                            }
+                            commitGrid.appendChild(cell);
+                        }
+                    }
+                    setTotalCommits(0);
+                }
+
+                function setActiveYear(period) {
+                    yearOptions.forEach(btn => {
+                        const isActive = btn.getAttribute('data-period') === String(period);
+                        btn.classList.toggle('active', isActive);
+                    });
+                    if (yearBadge) {
+                        yearBadge.textContent = period === 'last' ? 'Last 365d' : String(period);
+                    }
+                }
+
+                async function renderRealGithubContributions(period) {
+                    setActiveYear(period);
+                    try {
+                        const response = await fetch('data/github-contributions.json', { cache: 'no-store' });
+                        if (!response.ok) throw new Error('Local contribution data unavailable');
+                        const data = await response.json();
+                        if (!data || data.username !== username) throw new Error('Contribution data username mismatch');
+                        const periodData = data.periods ? data.periods[String(period)] : null;
+                        const countMap = periodData && periodData.counts ? periodData.counts : null;
+                        if (!countMap || !Object.keys(countMap).length) throw new Error('No contribution data for selected period');
+                        renderFromCountMap(countMap, period);
+                    } catch (error) {
+                        renderEmptyGrid(period);
+                    }
+                }
+
+                yearOptions.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const selectedPeriod = this.getAttribute('data-period');
+                        if (selectedPeriod && validPeriods.has(selectedPeriod)) {
+                            renderRealGithubContributions(selectedPeriod);
+                        }
+                    });
+                });
+
+                renderRealGithubContributions('last');
+            }
+
             const mediaImages = document.querySelectorAll('.media-item img');
             mediaImages.forEach(img => {
                 img.addEventListener('click', function() {
                     openLightbox(this);
                 });
             });
+
+            // Subtle blob repulsion from cursor in hero section
+            const hero = document.querySelector('.hero');
+            const blobs = hero ? Array.from(hero.querySelectorAll('.hero-blob')) : [];
+            if (hero && blobs.length) {
+                const maxPush = 16;
+
+                hero.addEventListener('mousemove', function(event) {
+                    blobs.forEach(blob => {
+                        const rect = blob.getBoundingClientRect();
+                        const centerX = rect.left + rect.width / 2;
+                        const centerY = rect.top + rect.height / 2;
+                        const dx = centerX - event.clientX;
+                        const dy = centerY - event.clientY;
+                        const distance = Math.sqrt(dx * dx + dy * dy) || 1;
+                        const force = Math.max(0, (260 - distance) / 260);
+                        const offsetX = (dx / distance) * maxPush * force;
+                        const offsetY = (dy / distance) * maxPush * force;
+
+                        blob.style.setProperty('--mouse-x', `${offsetX.toFixed(2)}px`);
+                        blob.style.setProperty('--mouse-y', `${offsetY.toFixed(2)}px`);
+                    });
+                });
+
+                hero.addEventListener('mouseleave', function() {
+                    blobs.forEach(blob => {
+                        blob.style.setProperty('--mouse-x', '0px');
+                        blob.style.setProperty('--mouse-y', '0px');
+                    });
+                });
+            }
         });
 
         // Close modal when clicking outside
@@ -584,25 +839,6 @@
                     // Fallback: open mailto/tel if clipboard fails
                     window.location.href = this.getAttribute('href');
                 });
-            });
-        });
-
-        // Hero walker follows cursor along hero bottom
-        document.addEventListener('DOMContentLoaded', function() {
-            const hero = document.querySelector('.hero');
-            const walker = document.getElementById('hero-walker');
-            if (!hero || !walker) return;
-
-            let lastX = null;
-            hero.addEventListener('mousemove', function(e) {
-                const rect = hero.getBoundingClientRect();
-                const x = Math.max(28, Math.min(e.clientX - rect.left, rect.width - 28));
-                walker.style.left = `${x}px`;
-
-                if (lastX !== null) {
-                    walker.classList.toggle('facing-left', x < lastX);
-                }
-                lastX = x;
             });
         });
     </script>
