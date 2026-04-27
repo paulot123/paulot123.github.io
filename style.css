@@ -819,7 +819,7 @@ nav a:hover {
 }
 
 .hero h1 {
-    font-family: "Roboto", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "JetBrains Mono", "Consolas", "Courier New", monospace;
     font-size: clamp(2.4rem, 6vw, 3.4rem);
     font-weight: 700;
     letter-spacing: 0.01em;

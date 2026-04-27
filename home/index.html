@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Home</title>
+</head>
+<body>
+    <noscript>
+        JavaScript is required for this route. Open <a href="/index.html">home page</a>.
+    </noscript>
+    <script>
+        fetch('/index.html', { cache: 'no-store' })
+            .then(response => {
+                if (!response.ok) throw new Error('Unable to load home page.');
+                return response.text();
+            })
+            .then(html => {
+                const withBase = html.replace('<head>', '<head><base href="/">');
+                document.open();
+                document.write(withBase);
+                document.close();
+            })
+            .catch(() => {
+                window.location.href = '/index.html';
+            });
+    </script>
+</body>
+</html>
