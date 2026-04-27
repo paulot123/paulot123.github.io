@@ -604,6 +604,8 @@
                     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     const { cellSize, gap, gridWidth } = getCommitLayoutMetrics();
                     const step = cellSize + gap;
+                    // Offset month labels so they align with heatmap columns after the left day-label gutter.
+                    const leftGutterOffset = 0;
                     let cursor = new Date(rangeStart.getFullYear(), rangeStart.getMonth(), 1);
                     if (cursor < rangeStart) {
                         cursor = new Date(rangeStart.getFullYear(), rangeStart.getMonth() + 1, 1);
@@ -612,7 +614,7 @@
                     while (cursor <= rangeEnd) {
                         const dayOffset = Math.floor((cursor - gridStart) / (1000 * 60 * 60 * 24));
                         const weekIndex = Math.floor(dayOffset / 7);
-                        const left = Math.max(0, Math.min(weekIndex * step, gridWidth - 30));
+                        const left = Math.max(leftGutterOffset, Math.min(leftGutterOffset + (weekIndex * step), leftGutterOffset + gridWidth - 30));
                         const label = document.createElement('span');
                         label.textContent = monthNames[cursor.getMonth()];
                         label.style.left = `${left}px`;
