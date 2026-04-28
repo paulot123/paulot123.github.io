@@ -544,6 +544,96 @@
 
         // Add click handlers to all images in media galleries
         document.addEventListener('DOMContentLoaded', function() {
+            const hero = document.querySelector('.hero');
+            const heroGridLights = document.querySelector('.hero-blobs');
+            if (hero && heroGridLights) {
+                const gridSize = 42;
+                const lightSize = 41;
+                const spawnTimers = new Set();
+                const activeLights = new Set();
+                let availableCells = [];
+
+                function clearLightTimers() {
+                    spawnTimers.forEach(timer => clearTimeout(timer));
+                    spawnTimers.clear();
+                    activeLights.forEach(light => light.remove());
+                    activeLights.clear();
+                }
+
+                function rebuildAvailableCells() {
+                    const rect = hero.getBoundingClientRect();
+                    const cols = Math.max(1, Math.floor(rect.width / gridSize));
+                    const rows = Math.max(1, Math.floor(rect.height / gridSize));
+                    const offsetX = (rect.width - (cols * gridSize)) / 2;
+                    const offsetY = (rect.height - (rows * gridSize)) / 2;
+                    availableCells = [];
+                    for (let col = 0; col < cols; col += 1) {
+                        for (let row = 0; row < rows; row += 1) {
+                            availableCells.push({
+                                left: Math.round(offsetX + (col * gridSize) + ((gridSize - lightSize) / 2)),
+                                top: Math.round(offsetY + (row * gridSize) + ((gridSize - lightSize) / 2))
+                            });
+                        }
+                    }
+                }
+
+                function randomCell() {
+                    if (!availableCells.length) return { left: 0, top: 0 };
+                    return availableCells[Math.floor(Math.random() * availableCells.length)];
+                }
+
+                function scheduleNextLight() {
+                    const delayMs = 220 + Math.random() * 420;
+                    const timer = setTimeout(() => {
+                        spawnTimers.delete(timer);
+                        spawnLight();
+                        scheduleNextLight();
+                    }, delayMs);
+                    spawnTimers.add(timer);
+                }
+
+                function spawnLight() {
+                    const durationMs = 6800 + Math.random() * 500;
+                    const idleMs = 500 + Math.random() * 1400;
+                    const cell = randomCell();
+                    const light = document.createElement('span');
+                    light.className = 'hero-light';
+                    light.style.left = `${cell.left}px`;
+                    light.style.top = `${cell.top}px`;
+                    light.style.animation = 'none';
+                    void light.offsetWidth;
+                    light.style.animation = `heroGridPulse ${durationMs / 1000}s ease-in-out forwards`;
+                    heroGridLights.appendChild(light);
+                    activeLights.add(light);
+
+                    const timer = setTimeout(() => {
+                        spawnTimers.delete(timer);
+                        activeLights.delete(light);
+                        light.remove();
+                    }, durationMs + idleMs);
+                    spawnTimers.add(timer);
+                }
+
+                function initializeHeroLights() {
+                    clearLightTimers();
+                    rebuildAvailableCells();
+                    heroGridLights.innerHTML = '';
+
+                    for (let i = 0; i < 10; i += 1) {
+                        const starter = setTimeout(() => {
+                            spawnTimers.delete(starter);
+                            spawnLight();
+                        }, Math.random() * 1200);
+                        spawnTimers.add(starter);
+                    }
+
+                    scheduleNextLight();
+                }
+
+                initializeHeroLights();
+                window.addEventListener('resize', initializeHeroLights);
+            }
+
             const commitGrid = document.getElementById('commit-grid');
             if (commitGrid) {
                 const weeks = 53;
@@ -803,7 +893,6 @@
             });
 
             // Subtle blob repulsion from cursor in hero section
-            const hero = document.querySelector('.hero');
             const blobs = hero ? Array.from(hero.querySelectorAll('.hero-blob')) : [];
             if (hero && blobs.length) {
                 const maxPush = 16;
