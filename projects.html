@@ -11,15 +11,76 @@
         <nav>
             <a href="/home" class="logo">Paulo Truong</a>
             <ul>
-                <li><a href="/home#about">About</a></li>
                 <li><a href="/projects">Projects</a></li>
-                <li><a href="/home#skills">Skills</a></li>
             </ul>
         </nav>
     </header>
 
     <section id="projects">
         <div class="projects-grid">
+            <div class="project-card" onclick="openModal('teledrive')">
+                <div class="project-content project-title">
+                    <h3>ENDEAVR Teledriving System</h3>
+                </div>
+                <div class="project-image project-media">
+                    <div class="media-placeholder">Add `assets/endeavr-teledrive-driving-station.png`</div>
+                </div>
+                <div class="project-content project-body">
+                    <div class="project-date">January 2026 - May 2026</div>
+                    <p>A low-latency teledriving platform for remotely operating a CARLA-simulated vehicle through a desktop driving station with live video, telemetry, and wheel-based controls.</p>
+                    <div class="project-tags">
+                        <span class="tag">Electron</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">FFmpeg</span>
+                        <span class="tag">UDP</span>
+                    </div>
+                    <div class="expand-hint">Click to see more details →</div>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('lbsim')">
+                <div class="project-content project-title">
+                    <h3>Load Balancer</h3>
+                </div>
+                <div class="project-image project-media">
+                    <div class="media-placeholder">Add `assets/LoadBalancerHome.png`</div>
+                </div>
+                <div class="project-content project-body">
+                    <div class="project-date">February 2026 - March 2026</div>
+                    <p>A C++ load balancer simulation that distributes requests across web servers, auto-scales server capacity, and blocks configurable IP ranges.</p>
+                    <div class="project-tags">
+                        <span class="tag">C++</span>
+                        <span class="tag">Systems Programming</span>
+                        <span class="tag">Networking</span>
+                        <span class="tag">Concurrency</span>
+                        <span class="tag">Load Balancing</span>
+                    </div>
+                    <div class="expand-hint">Click to see more details →</div>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openModal('visionequity')">
+                <div class="project-content project-title">
+                    <h3>Colorblind Companion</h3>
+                </div>
+                <div class="project-image project-media">
+                    <div class="media-placeholder">Add `assets/VisionEquityHome.png`</div>
+                </div>
+                <div class="project-content project-body">
+                    <div class="project-date">March 2026 - April 2026</div>
+                    <p>A Chrome extension that improves web accessibility for color-blind users with live color-vision simulation, chart pattern overlays, and automatic contrast fixes.</p>
+                    <div class="project-tags">
+                        <span class="tag">Accessibility</span>
+                        <span class="tag">Chrome Extension</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">SVG Filters</span>
+                        <span class="tag">Assistive Tech</span>
+                    </div>
+                    <div class="expand-hint">Click to see more details →</div>
+                </div>
+            </div>
+
             <div class="project-card" onclick="openModal('bmo')">
                 <div class="project-content project-title">
                     <h3>BMO - Local AI Voice Assistant</h3>
@@ -84,6 +145,182 @@
             </div>
         </div>
     </section>
+
+    <div id="teledrive-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('teledrive')">&times;</span>
+            <div class="modal-header">
+                <h2>ENDEAVR Teledriving System</h2>
+                <p style="opacity: 0.9;">January 2026 - May 2026</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Overview</h3>
+                    <p>ENDEAVR Teledriving System is a remote vehicle control prototype built around the CARLA simulator, a React/Electron operator station, and a wheel-based control client. The system streams H.264 video and JSON telemetry over UDP so an operator can monitor speed, gear, braking, signals, and link quality in near real time. It also includes a fleet dashboard for operational visibility and logging, making it a strong exploration of low-latency remote transportation workflows. The project matters because it demonstrates an end-to-end teledriving loop for rural mobility scenarios, from physical input hardware to simulated vehicle response.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Media Gallery</h3>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            <div class="media-placeholder">Add `assets/endeavr-teledrive-driving-station.png`</div>
+                        </div>
+                        <div class="media-item">
+                            <div class="media-placeholder">Add `assets/endeavr-teledrive-fleet-dashboard.png`</div>
+                        </div>
+                        <div class="media-item">
+                            <div class="media-placeholder">Add `assets/endeavr-teledrive-architecture.png`</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Built an end-to-end teledriving loop connecting SDL2 wheel input, CARLA simulation, UDP telemetry, and a React/Electron operator station.</li>
+                        <li>Streamed low-latency H.264 camera video over UDP with FFmpeg-based encode/decode for real-time remote driving feedback.</li>
+                        <li>Implemented a live driving HUD showing speed, gear, brake state, headlights, turn signals, latency, and packet loss.</li>
+                        <li>Added a fleet dashboard with operational logs, telemetry snapshots, latency visualization, and system event monitoring.</li>
+                        <li>Developed wheel-control networking for steering, throttle, brake, reverse, handbrake, honk, and signal commands over UDP/TCP.</li>
+                        <li>Added backend safeguards such as pedal normalization, brake/throttle conflict handling, and a simulated speed cap.</li>
+                        <li>Spawned and managed CARLA traffic NPCs plus front and rear camera sensors for richer driving scenarios.</li>
+                        <li>Wrote automated Python unit and integration tests covering telemetry formatting, command parsing, and streaming behavior.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Technologies Used</h3>
+                    <div class="project-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">React Router</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">Vite</span>
+                        <span class="tag">Electron</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">CARLA</span>
+                        <span class="tag">FFmpeg</span>
+                        <span class="tag">NumPy</span>
+                        <span class="tag">Pygame</span>
+                        <span class="tag">Pytest</span>
+                        <span class="tag">C++</span>
+                        <span class="tag">SDL2</span>
+                        <span class="tag">UDP</span>
+                        <span class="tag">TCP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="lbsim-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('lbsim')">&times;</span>
+            <div class="modal-header">
+                <h2>Load Balancer</h2>
+                <p style="opacity: 0.9;">February 2026 - March 2026</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Overview</h3>
+                    <p>Load Balancer is a C++ systems simulation that models how incoming network requests are queued, routed to web servers, and processed over discrete clock cycles. The project includes dynamic server scaling based on queue pressure, configurable firewall-style IP blocking, and logging for runtime analysis. It also implements a bonus switch mode that separates processing and streaming traffic across two dedicated load balancers. This makes it a strong demonstration of queue management, simulation design, and core load-balancing concepts.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Media Gallery</h3>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            <div class="media-placeholder">Add `assets/LoadBalancerHome.png`</div>
+                        </div>
+                        <div class="media-item">
+                            <div class="media-placeholder">Add `assets/LoadBalancerBonusMode.png`</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Simulated request dispatch across a pool of web servers using discrete clock-cycle execution.</li>
+                        <li>Implemented dynamic autoscaling that adds or removes servers based on configurable queue thresholds.</li>
+                        <li>Built a configurable firewall layer that rejects requests from blocked IP prefixes to model DOS prevention.</li>
+                        <li>Added config-file and command-line controls for server count, runtime, task duration, and request intervals.</li>
+                        <li>Logged runtime events and end-of-run statistics including processed, rejected, and queued requests.</li>
+                        <li>Developed a bonus switch router that splits processing and streaming jobs across two dedicated load balancers.</li>
+                        <li>Used thread-safe queue primitives and modular class design to separate request, server, routing, and config concerns.</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Technologies Used</h3>
+                    <div class="project-tags">
+                        <span class="tag">C++</span>
+                        <span class="tag">C++17</span>
+                        <span class="tag">CMake</span>
+                        <span class="tag">Makefile</span>
+                        <span class="tag">STL</span>
+                        <span class="tag">mt19937</span>
+                        <span class="tag">Mutex</span>
+                        <span class="tag">Queue</span>
+                        <span class="tag">Systems Programming</span>
+                        <span class="tag">Networking Simulation</span>
+                        <span class="tag">Doxygen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="visionequity-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('visionequity')">&times;</span>
+            <div class="modal-header">
+                <h2>VisionEquity</h2>
+                <p style="opacity: 0.9;">March 2026 - April 2026</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Overview</h3>
+                    <p>VisionEquity is an early-stage Chrome extension designed to make web content easier to interpret for people with color-vision deficiencies. It applies real-time simulation and correction filters, adds patterns to charts and similarly colored elements, and improves contrast for hard-to-read text. The project matters because it explores practical, page-level accessibility interventions that can help users understand visual information more reliably across the web.</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Media Gallery</h3>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            <div class="media-placeholder">Add screenshots or demo media for VisionEquity here.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Built a Chrome extension that applies live color-vision simulation directly on visited web pages</li>
+                        <li>Implemented correction filters to improve readability for users with common forms of color blindness</li>
+                        <li>Added pattern overlays for charts and similarly colored interface elements to reduce reliance on color alone</li>
+                        <li>Created automatic contrast adjustments for text and page elements that are difficult to distinguish</li>
+                        <li>Used DOM observation to keep accessibility enhancements applied as pages update dynamically</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Technologies Used</h3>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">Chrome Extension Manifest V3</span>
+                        <span class="tag">Chrome Storage API</span>
+                        <span class="tag">Chrome Tabs API</span>
+                        <span class="tag">Content Scripts</span>
+                        <span class="tag">Service Worker</span>
+                        <span class="tag">SVG feColorMatrix</span>
+                        <span class="tag">MutationObserver</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="bmo-modal" class="modal">
         <div class="modal-content">
